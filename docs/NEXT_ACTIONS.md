@@ -10,10 +10,10 @@
 - [ ] E2E 接続：Falco 実行 or リプレイ導線から JSON アサーションを実行
 - [ ] CI 可視化：Step Summary に検出統計/サマリ出力、`test-results/` 収集
 - [ ] 運用外部化：許可リスト/しきい値の YAML 化（環境別上書き対応）
+ - [ ] 監査Producer: `mcp-audit-wrap`（StdIO）と `mcp-audit-proxy`（WS） の雛形を追加（eBPF/カーネル非依存）
 
 # 受入基準
 
 - 生成コードを利用したユニットテストが通過
 - 代表 E2E シナリオが JSON アサーションで一致
 - ルール4本が本線に配置され CI で検証可能
-
