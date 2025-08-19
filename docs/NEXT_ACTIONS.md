@@ -2,18 +2,18 @@
 
 直近スプリント（1–2 週）の実行項目を明確化し、MCP プラグイン MVP の着地を加速する。
 
-# 次アクション（優先順）
+# 次アクション（優先順・更新）
 
+- [ ] テスト用 MCP Server 最小実装（stdio/ws）と起動スクリプト追加
+- [ ] 代表シナリオ（S1〜S4）の自動化（検証スクリプト/期待値）
+- [ ] `mcp-audit-wrap` の JSON-RPC `.method` 抽出と per-call イベント出力（オプション）
+- [ ] `mcp-audit-proxy` の JSON-RPC `.method` 抽出（可能な範囲、TLS透過維持）
+- [ ] CI 可視化の実装：Step Summary 出力＋`actions/upload-artifact` で `test-results/` 収集
+- [ ] 運用外部化：許可リスト/しきい値の YAML 化とルール生成フロー（軽量プリプロセス）
 - [ ] コード生成の実装強化：`scripts/gen-fields.sh` → フィールド定義/型/変換テーブル出力
-- [ ] 抽出器雛形：SDKベースで `mcp.*` をフィールド登録（StringPool順守）
-- [ ] ルール本線化：`rules/templates/mcp_baseline_rules.yaml` → `rules/mcp_baseline.yaml`
-- [ ] E2E 接続：Falco 実行 or リプレイ導線から JSON アサーションを実行
-- [ ] CI 可視化：Step Summary に検出統計/サマリ出力、`test-results/` 収集
-- [ ] 運用外部化：許可リスト/しきい値の YAML 化（環境別上書き対応）
- - [ ] 監査Producer: `mcp-audit-wrap`（StdIO）と `mcp-audit-proxy`（WS） の雛形を追加（eBPF/カーネル非依存）
 
 # 受入基準
 
-- 生成コードを利用したユニットテストが通過
-- 代表 E2E シナリオが JSON アサーションで一致
-- ルール4本が本線に配置され CI で検証可能
+- テストサーバー（stdio/ws）から生成される監査JSONに期待フィールドが出現
+- 代表シナリオ（S1〜S4）が JSON アサーションで一致
+- CI で Step Summary/アーティファクトが確認でき、最低限のゲートが機能
