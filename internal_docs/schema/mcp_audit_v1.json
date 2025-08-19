@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/schemas/mcp_audit_v1.json",
+  "title": "MCP Audit Event v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "timestamp",
+    "session_id",
+    "client_process",
+    "server_host",
+    "server_port",
+    "tls",
+    "method"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1" },
+    "timestamp": { "type": "integer", "description": "unix ns" },
+    "session_id": { "type": "string" },
+    "client_process": { "type": "string" },
+    "server_host": { "type": "string" },
+    "server_port": { "type": "integer", "minimum": 1, "maximum": 65535 },
+    "tls": { "type": "boolean" },
+    "auth_scheme": { "type": "string", "enum": ["none","basic","bearer","mtls","other" ] },
+    "method": { "type": "string" },
+    "request_bytes": { "type": "integer", "minimum": 0 },
+    "response_bytes": { "type": "integer", "minimum": 0 },
+    "tool_invoke_count": { "type": "integer", "minimum": 0 },
+    "file_access_count": { "type": "integer", "minimum": 0 },
+    "dataset_id": { "type": "string" },
+    "scope": { "type": "string" },
+    "error_code": { "type": "string" },
+    "cert_fingerprint": { "type": "string" }
+  },
+  "additionalProperties": true
+}
+

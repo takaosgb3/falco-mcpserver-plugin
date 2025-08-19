@@ -1,0 +1,15 @@
+{
+  "schema_version": "1",
+  "timestamp": 1724050000000000000,
+  "session_id": "sess-123",
+  "client_process": "codex-cli",
+  "server_host": "localhost",
+  "server_port": 8080,
+  "tls": true,
+  "method": "tools.list",
+  "request_bytes": 512,
+  "response_bytes": 2048,
+  "tool_invoke_count": 2,
+  "file_access_count": 0
+}
+
