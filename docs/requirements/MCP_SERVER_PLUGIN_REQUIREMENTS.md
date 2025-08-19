@@ -5,7 +5,7 @@ MCP Server に対する AI コーディングツール（Codex CLI / Claude Code
 # 前提
 
 - 対象: MCP Server との通信・呼び出し（ツール実行、ファイルアクセス、プロンプト/モデル呼び出し前後のメタデータ）。
-- 環境: 自己ホストRunner/ローカル開発環境を想定。Falco 本体はドライバレスで可、E2E は SKIP ポリシーを徹底。
+- 環境: GitHub Actions ランナー/ローカル開発環境を想定。Falco 本体はドライバレスで可、E2E は SKIP ポリシーを徹底。
 - 方針: SDK-first（`cmd/plugin-sdk/` 系の設計を優先）。CGO は必要最小限。フィールド/ルールは後方互換を重視。
 - セキュリティ: ペイロード本体は原則収集しない（メタデータ中心、PII/機密はレッドアクト方針）。
 
@@ -80,7 +80,7 @@ MCP Server に対する AI コーディングツール（Codex CLI / Claude Code
 # 受入基準（観測可能な条件）
 - ユニット: JSON → フィールド変換のテーブル駆動テストが安定通過。
 - E2E: 代表シナリオで JSON アサーションが一致（`rule`/`priority`/`output_fields["mcp.*"]`）。
-- CI: 自己ホストRunnerで安定起動、必要依存（`jq bc file`）を明示し SKIP 方針を実装。
+- CI: GitHub Actions ランナーで安定起動、必要依存（`jq bc file`）を明示し SKIP 方針を実装。
 - ルール: 未承認エンドポイント/非TLS/大量送信/過剰呼び出しのしきい値検知が機能。
 
 # リスク/代替
@@ -92,5 +92,4 @@ MCP Server に対する AI コーディングツール（Codex CLI / Claude Code
 - 監査JSONスキーマの固め: 最小セット（上記 MVP）で `docs/schema/` を定義。
 - プラグイン雛形: SDK ベースのソース/抽出プラグインを用意し、テーブル駆動テストを追加。
 - ルール最小セット: 4 本（未承認/非TLS/大量送信/過剰呼び出し）+ E2E スクリプト。
-- CI 配線: 自己ホストRunnerラベル固定、`jq bc file` 導入、`test-results/` アーティファクト化。
-
+- CI 配線: `ubuntu-latest` 固定、`jq bc file` 導入、`test-results/` アーティファクト化。

@@ -4,7 +4,7 @@ MCP Server 向け Falco プラグイン（以降「MCP プラグイン」）の�
 
 # 前提
 
-- ランタイム: 自己ホストRunner/ローカル環境（Falcoはドライバレス可）。
+- ランタイム: GitHub Actions ランナー（ubuntu-latest）/ローカル環境（Falcoはドライバレス可）。
 - ポリシー: SDK-first、小さく可逆、CI優先、SKIPポリシー、PII最小化。
 - 入力: まずは MCP 監査 JSON（sidecar/proxy/クライアントで生成）。将来 eBPF/プロキシ連携に拡張。
 
@@ -47,7 +47,7 @@ MCP Server 向け Falco プラグイン（以降「MCP プラグイン」）の�
 
 - ユニット: JSON→フィールド変換のテーブル駆動テストが安定通過。
 - E2E: 代表シナリオで `.rule/.priority/output_fields["mcp.*"]` が一致。
-- CI: 自己ホストRunnerで安定、`jq bc file` 導入、SKIP時は明確な理由を出力。
+- CI: GitHub Actions ランナーで安定、`jq bc file` 導入、SKIP時は明確な理由を出力。
 - 互換: `mcp.*` フィールドは後方互換、追加はOK/リネームは原則禁止（同時にルール/テスト更新）。
 
 # リスク/代替
@@ -70,7 +70,7 @@ MCP Server 向け Falco プラグイン（以降「MCP プラグイン」）の�
 
 # 運用/CI
 
-- ランナー: `runs-on: [self-hosted, linux, x64, local]` を前提。
+- ランナー: `runs-on: ubuntu-latest` を前提。
 - 依存: `jq bc file` を明示インストール。アーティファクト収集を標準化。
 - ガード: `grep -r "ubuntu-latest" .github/workflows` などで誤設定を検知。
 

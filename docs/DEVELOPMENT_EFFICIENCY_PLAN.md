@@ -33,11 +33,10 @@ MCP Server 向け Falco プラグイン開発の将来の開発効率を体系�
 
 - スキーマ逸脱: フィールド生成前に `schema check` を CI に追加。逸脱時は失敗。
 - テストフレーク: データセット固定化/乱数排除/リトライ上限を導入。
-- CI環境差: 依存の明示インストール（`jq bc file`）と自己ホストRunnerラベル固定。
+- CI環境差: 依存の明示インストール（`jq bc file`）と GitHub Actions ランナー（ubuntu-latest）固定。
 
 # 次アクション
 
 - `schema/` と `scripts/gen-fields.sh` の骨子作成。
 - 代表E2Eスクリプトの雛形と共通アサーション関数を実装。
 - PRテンプレ/チェックリストの叩き台を追加。
-

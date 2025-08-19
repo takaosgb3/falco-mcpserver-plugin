@@ -5,7 +5,7 @@ MCP Server 向け Falco プラグインのアーキテクチャを、読みや�
 # 前提
 
 - 入力: 監査イベント（JSON行、`docs/schema/mcp_audit_v1.json` 準拠）
-- 方針: SDK-first／小さく可逆／後方互換／PII最小化／SKIP方針／自己ホストRunner
+- 方針: SDK-first／小さく可逆／後方互換／PII最小化／SKIP方針／GitHub Actions ランナー
 - 除外: eBPF/カーネルモジュールは Phase 1 では不使用（将来の拡張候補）
 - フィールド: `mcp.*` 名前空間。Falco ルールは JSON アサーションで検証
 
@@ -55,7 +55,7 @@ MCP Server 向け Falco プラグインのアーキテクチャを、読みや�
 # 設定/運用（外部化）
 
 - 許可リスト/しきい値/レッドアクト: `docs/config/EXAMPLE_VALUES.yaml` を基に環境で上書き
-- 変更は小さく可逆に（ルール変更時はテスト更新）。CIは自己ホストRunner＋SKIP方針
+- 変更は小さく可逆に（ルール変更時はテスト更新）。CIはGitHub Actions＋SKIP方針
 
 # セキュリティ/プライバシー原則
 
@@ -123,7 +123,7 @@ MCP Server 向け Falco プラグインのアーキテクチャを、読みや�
 
 - 代表シナリオで `output_fields["mcp.*"]` が期待通り、ベースルールが発火
 - 破損 JSON/欠損で安全にスキップ（クラッシュしない）、メトリクス記録
-- CI（自己ホストRunner）で JSON アサーションが安定
+- CI（GitHub Actions ランナー）で JSON アサーションが安定
 
 # リスク/代替
 
@@ -136,4 +136,3 @@ MCP Server 向け Falco プラグインのアーキテクチャを、読みや�
 - プラグイン雛形と変換テーブル実装（コード生成の適用）
 - Producer（wrap/proxy）の機能拡張（メソッド名抽出、セッション相関）
 - ルール本線化と E2E の JSON アサーション強化
-

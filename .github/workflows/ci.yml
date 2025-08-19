@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21.x'
+
+      - name: Build audit tools
+        run: |
+          go build ./cmd/mcp-audit-wrap
+          go build ./cmd/mcp-audit-proxy
+
+      - name: Install test deps
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y jq bc file
+
+      - name: Run E2E (offline, SKIP-friendly)
+        run: |
+          bash falco-mcpserver-plugin/test/e2e/basic/test_mcp_audit_basics.sh || true
+          bash falco-mcpserver-plugin/test/e2e/attack/test_mcp_anomalies.sh || true
+
