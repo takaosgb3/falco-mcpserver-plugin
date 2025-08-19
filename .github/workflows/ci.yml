@@ -1,10 +1,9 @@
 name: CI
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build-and-check:
@@ -30,6 +29,5 @@ jobs:
 
       - name: Run E2E (offline, SKIP-friendly)
         run: |
-          bash falco-mcpserver-plugin/test/e2e/basic/test_mcp_audit_basics.sh || true
-          bash falco-mcpserver-plugin/test/e2e/attack/test_mcp_anomalies.sh || true
-
+          bash test/e2e/basic/test_mcp_audit_basics.sh || true
+          bash test/e2e/attack/test_mcp_anomalies.sh || true
