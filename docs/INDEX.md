@@ -24,6 +24,8 @@
 - 監査Producer: [audit/PRODUCERS.md](audit/PRODUCERS.md) — stdio/WS/client-emitter の設計・起動・シーケンス。
 - CI設計: [ci/CI_DESIGN.md](ci/CI_DESIGN.md) — トリガー/ジョブ/ゲート/可視化の設計。
 - テスト用MCP: [testing/MCP_TEST_SERVER_DESIGN.md](testing/MCP_TEST_SERVER_DESIGN.md), [testing/MCP_TEST_SCENARIOS.md](testing/MCP_TEST_SCENARIOS.md) — テストサーバ設計と具体シナリオ。
+- 開発日記: [journal/DEV_DIARY.md](journal/DEV_DIARY.md) — 日次の進捗/決定/課題/次アクション。
+- 日記テンプレ: [journal/TEMPLATE.md](journal/TEMPLATE.md) — 追記用テンプレート。
 
 ## 注意
 - `internal_docs/` はローカル参照用（リモート非公開）。公開が必要な要点は本 `docs/` 側に再編集して配置してください。
