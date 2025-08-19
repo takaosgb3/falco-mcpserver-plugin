@@ -7,6 +7,7 @@
 - 効率化計画: [DEVELOPMENT_EFFICIENCY_PLAN.md](DEVELOPMENT_EFFICIENCY_PLAN.md) — スキーマ駆動/コード生成/E2E/CI可視化の方針。
 - 計画: [project/PROJECT_PLAN.md](project/PROJECT_PLAN.md) — フェーズ/マイルストーン/タイムライン/リスク。
 - フェーズ1タスク: [project/PHASE1_TASKS.md](project/PHASE1_TASKS.md) — フェーズ1の詳細タスク/受入/検証/DoD。
+- フェーズ2タスク: [project/PHASE2_TASKS.md](project/PHASE2_TASKS.md) — テストサーバ/シナリオ/CI可視化/Producer拡張の詳細。
 - 次アクション: [NEXT_ACTIONS.md](NEXT_ACTIONS.md) — 直近タスクと受入基準（実行優先度つき）。
 - スキーマ: [schema/mcp_audit_v1.json](schema/mcp_audit_v1.json) — 監査イベントのJSONスキーマ（v1）。
 - アーキテクチャ: [architecture/OVERVIEW.md](architecture/OVERVIEW.md) — 高レベル構成とフロー（MECE）。
