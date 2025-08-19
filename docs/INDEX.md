@@ -8,6 +8,7 @@
 - 計画: `project/PROJECT_PLAN.md`
 - 次アクション: `NEXT_ACTIONS.md`
 - スキーマ: `schema/mcp_audit_v1.json`
+ - アーキテクチャ: `architecture/OVERVIEW.md`, `architecture/DETAILED.md`
 
 ## 実装リソース（雛形/テンプレ）
 - ルールテンプレ: `../rules/templates/mcp_baseline_rules.yaml`
@@ -18,4 +19,3 @@
 
 ## 注意
 - `internal_docs/` はローカル参照用（リモート非公開）。公開が必要な要点は本 `docs/` 側に再編集して配置してください。
-
