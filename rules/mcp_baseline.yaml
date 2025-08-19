@@ -1,0 +1,48 @@
+---
+# MCP Server Plugin baseline rules (mainline)
+# Source name must match the plugin source (placeholder: mcp_audit)
+
+list:
+  allowed_mcp_hosts:
+    - "localhost"
+    - "127.0.0.1"
+    - "mcp.internal.local"
+
+macros:
+  - name: mcp_unapproved_host
+    condition: not (mcp.server_host in (allowed_mcp_hosts))
+
+rules:
+  - rule: MCP Unapproved Endpoint Access
+    desc: Detect access to MCP servers not in the allowlist
+    condition: evt.source = mcp_audit and mcp_unapproved_host
+    output: >-
+      MCP unapproved endpoint access (host=%mcp.server_host port=%mcp.server_port
+      client=%mcp.client_process session=%mcp.session_id)
+    priority: WARNING
+    source: mcp_audit
+
+  - rule: MCP Insecure TLS
+    desc: Detect plaintext connections to MCP servers
+    condition: evt.source = mcp_audit and mcp.tls=false
+    output: >-
+      MCP insecure TLS (tls=%mcp.tls host=%mcp.server_host)
+    priority: NOTICE
+    source: mcp_audit
+
+  - rule: MCP Excessive Data Transfer
+    desc: Detect unusually large data transfers to MCP
+    condition: evt.source = mcp_audit and (mcp.request_bytes > 10485760 or mcp.response_bytes > 10485760)
+    output: >-
+      MCP excessive data transfer (req=%mcp.request_bytes resp=%mcp.response_bytes method=%mcp.method)
+    priority: WARNING
+    source: mcp_audit
+
+  - rule: MCP Excessive Tool Invocations
+    desc: Detect unusually frequent tool invocations in a session
+    condition: evt.source = mcp_audit and mcp.tool_invoke_count > 100
+    output: >-
+      MCP excessive tool invocations (count=%mcp.tool_invoke_count method=%mcp.method session=%mcp.session_id)
+    priority: NOTICE
+    source: mcp_audit
+

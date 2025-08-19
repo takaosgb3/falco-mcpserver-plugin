@@ -1,0 +1,13 @@
+allowlist:
+  hosts:
+    - localhost
+    - 127.0.0.1
+    - mcp.internal.local
+thresholds:
+  request_bytes_warn: 10485760    # 10 MiB
+  response_bytes_warn: 10485760   # 10 MiB
+  tool_invoke_warn: 100
+redaction:
+  mask_auth: true
+  hash_identifiers: true
+

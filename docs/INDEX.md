@@ -12,10 +12,12 @@
 
 ## 実装リソース（雛形/テンプレ）
 - ルールテンプレ: `../rules/templates/mcp_baseline_rules.yaml`
+- ルール本線: `../rules/mcp_baseline.yaml`
 - 生成スクリプト: `../scripts/gen-fields.sh`
 - JSONアサーション: `../scripts/lib/assert_json.sh`
 - サンプルデータ: `../test/data/mcp_audit/*.json`
 - E2Eスクリプト: `../test/e2e/basic/test_mcp_audit_basics.sh`, `../test/e2e/attack/test_mcp_anomalies.sh`
+- 設定ガイド: `config/README.md`, `config/EXAMPLE_VALUES.yaml`
 
 ## 注意
 - `internal_docs/` はローカル参照用（リモート非公開）。公開が必要な要点は本 `docs/` 側に再編集して配置してください。

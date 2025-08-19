@@ -46,6 +46,73 @@ MCP プラグインの詳細設計（モジュール/インタフェース/メ�
 - YAML に許可ホスト/しきい値/レッドアクト方針。環境別オーバレイ（例: `values.local.yaml`）。
 - ルールはテンプレ＋環境値で生成可能な構成に（将来）。
 
+# 設定例（公開用）
+
+```yaml
+# docs/config/EXAMPLE_VALUES.yaml
+allowlist:
+  hosts:
+    - localhost
+    - 127.0.0.1
+    - mcp.internal.local
+thresholds:
+  request_bytes_warn: 10485760    # 10 MiB
+  response_bytes_warn: 10485760   # 10 MiB
+  tool_invoke_warn: 100
+redaction:
+  mask_auth: true
+  hash_identifiers: true
+```
+
+# ルール構成（本線）
+
+- `rules/mcp_baseline.yaml` にベースルール4本を配置。
+- 依存フィールドは `mcp.*` に限定（未実装の評価ロジックは持ち込まない）。
+
+```yaml
+# rules/mcp_baseline.yaml の骨子（抜粋）
+list:
+  allowed_mcp_hosts:
+    - localhost
+    - 127.0.0.1
+    - mcp.internal.local
+macros:
+  - name: mcp_unapproved_host
+    condition: not (mcp.server_host in (allowed_mcp_hosts))
+rules:
+  - rule: MCP Unapproved Endpoint Access
+    condition: evt.source = mcp_audit and mcp_unapproved_host
+    priority: WARNING
+    source: mcp_audit
+  - rule: MCP Insecure TLS
+    condition: evt.source = mcp_audit and mcp.tls=false
+    priority: NOTICE
+    source: mcp_audit
+```
+
+# 出力例（Falco JSON）
+
+```json
+{
+  "rule": "MCP Unapproved Endpoint Access",
+  "priority": "Warning",
+  "output_fields": {
+    "mcp.server_host": "unknown.example.com",
+    "mcp.server_port": 443,
+    "mcp.client_process": "claude-code",
+    "mcp.session_id": "sess-999"
+  }
+}
+```
+
+# E2E アサーション断片
+
+```bash
+. scripts/lib/assert_json.sh
+assert_json_field artifact.json '.rule' 'MCP Unapproved Endpoint Access'
+assert_json_contains artifact.json '.output_fields."mcp.server_host"' 'unknown.example.com'
+```
+
 # ルール連携
 
 - `source: mcp_audit`、`output_fields["mcp.*"]` を出力。
@@ -73,4 +140,3 @@ MCP プラグインの詳細設計（モジュール/インタフェース/メ�
 
 - 受入: ユニット/E2E/CI が安定、ルール最小セットが機能、後方互換を維持。
 - 次アクション: SDK 雛形作成、コード生成強化、ルール本線化、CI 可視化の実装。
-
