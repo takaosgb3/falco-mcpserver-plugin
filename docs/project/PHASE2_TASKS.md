@@ -16,16 +16,19 @@
 - [P2-1] テスト用 MCP Server 実装
   - 目的: 監査導線の実動作を再現（stdio/ws/wss）。
   - 作業:
-    - [ ] `cmd/mcp-test-server` 追加（Go）: `--mode stdio|ws`, `--listen`, `--tls-cert/key`
-    - [ ] メソッド: `tools.list`, `prompts.get`, `tools.exec`
-    - [ ] 制御: `--resp-size-bytes`, `--delay-ms`, `--error-rate`, `--burst-calls`, `--seed`
-    - [ ] ドキュメント: `docs/testing/MCP_TEST_SERVER_DESIGN.md` 仕様との差分反映
+    - [x] [P2-1.1] stdio モード実装（`cmd/mcp-test-server --mode stdio`）
+    - [ ] [P2-1.2] ws モード実装（`--mode ws` / `--listen`）
+    - [ ] [P2-1.3] wss 対応（`--tls-cert/key`）（任意/後続）
+    - [x] [P2-1.4] メソッド: `tools.list`, `prompts.get`, `tools.exec`
+    - [x] [P2-1.5] 制御: `--resp-size-bytes`, `--delay-ms`, `--error-rate`, `--burst-calls`, `--seed`
+    - [ ] [P2-1.6] ドキュメント反映（設計との差分を更新）
   - 受入: stdio/ws起動でき、制御がレスポンス/遅延/エラーに反映。
 
 - [P2-2] シナリオ自動化（S1〜S4）
   - 目的: 代表的な検知が再現・検証できる手順を自動化。
   - 作業:
-    - [ ] `test/integration/` にスクリプト追加（SKIP設計）
+    - [x] [P2-2.1] stdio 統合テスト（Actionsランナー）追加：`test/integration/stdio_wrap_basic.sh`
+    - [ ] [P2-2.2] WS 統合テストを追加（プロキシ経路）
     - [ ] 期待値: 監査JSONの必須フィールド/JQ断片・将来Falcoイベント断片
     - [ ] 最小負荷プロファイル（CI用）と拡張プロファイル（ローカル用）のテンプレ化
   - 受入: ローカル/CI（手動トリガ）で決定論的に再現可能。
@@ -42,7 +45,7 @@
   - 目的: CI上で結果が一目で把握でき、再現性が高まる。
   - 作業:
     - [ ] Step Summary 出力（PASS/FAIL/SKIP件数、主要ファイルの有無）
-    - [ ] `actions/upload-artifact` で `test-results/` を収集
+    - [x] `actions/upload-artifact` で `test-results/` を収集（最小）
     - [ ] （任意）同一PRの重複実行キャンセル `concurrency`
   - 受入: PRページからサマリ/成果物が確認可。
 
@@ -93,4 +96,3 @@
 - [ ] CIにStep Summary/Artifactsが追加され可視化
 - [ ] 設定YAML→ルール生成→検証の一連が成立
 - [ ] 最小lint/testがCIに組み込まれ安定
-

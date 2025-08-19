@@ -23,7 +23,7 @@ MCP Server 向け Falco プラグイン（以降「MCP プラグイン」）の�
   - CI 初期構成（完了）: GitHub Actions（PR/手動）で Build + オフラインE2E（SKIP設計）。
   - ルール最小4本（完了）: 未承認エンドポイント/非TLS/大量送信/過剰呼び出し。
   - 方針: eBPF/カーネルモジュールは不使用。監査は StdIO/WS/クライアント内で生成。
-- [PH-2] フェーズ2（品質/運用強化・実動テスト導入）
+- [PH-2] フェーズ2（品質/運用強化・実動テスト導入）【進行中】
   - テスト用 MCP Server を実装（`docs/testing/MCP_TEST_SERVER_DESIGN.md` 準拠）。
   - 代表シナリオ（S1〜S4）を自動化（`docs/testing/MCP_TEST_SCENARIOS.md`）。
   - 監査Producer拡張: JSON-RPC `.method` 抽出（wrap/proxy）と per-call イベント出力（必要に応じて有効化）。
@@ -42,8 +42,8 @@ MCP Server 向け Falco プラグイン（以降「MCP プラグイン」）の�
   - `docs/schema/mcp_audit_v1.json`, `rules/mcp_baseline.yaml`, `cmd/mcp-audit-wrap`, `cmd/mcp-audit-proxy`
 - [MS-2] M2: CI基盤（初期）（完了）
   - `.github/workflows/ci.yml`（PR/手動）, `docs/ci/CI_DESIGN.md`
-- [MS-3] M3: テスト用 MCP Server + シナリオ（新規）
-  - `mcp-test-server`（stdio/ws）, `docs/testing/*` 反映, 自動化スクリプト
+- [MS-3] M3: テスト用 MCP Server + シナリオ（新規・一部完了）
+  - `mcp-test-server`（stdio 完了 / ws 予定）, `docs/testing/*` 反映, 自動化スクリプト（stdio統合テスト完了）
 - [MS-4] M4: CI 可視化/安定化（新規）
   - Step Summary, `actions/upload-artifact` による `test-results/` 収集
 - [MS-5] M5: 運用外部化/ゲート強化（新規）
