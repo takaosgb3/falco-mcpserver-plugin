@@ -35,9 +35,23 @@
 
 # 成果物/可視化（設計）
 
-- 近々: Step Summary に `[PASS]/[SKIP]` 件数、主要ファイル確認状況を出力。
+- 近々: Step Summary に `[PASS]/[FAIL]/[SKIP]` 件数、主要ファイル確認状況を出力。
 - 近々: `test-results/`（JSON/ログ）をアーティファクト化（ダウンロード可）。
 - 現状: Actionsログで確認（`[INFO]`, `[PASS]`, `[SKIP]` が目印）。
+
+## Step Summary / Artifacts 仕様（追記）
+
+- 出力先: `$GITHUB_STEP_SUMMARY` に以下形式で追記する。
+  - タイトル: `### MCP Plugin Tests`
+  - 集計例:
+    - `- E2E (offline): PASS`
+    - `- Integration (stdio): PASS`
+    - `- Integration (ws): SKIP`
+  - アーティファクト: `- Artifacts: test-results/audit_stdio.jsonl, audit_ws.jsonl`
+- アーティファクト命名規約（`test-results/` 配下）:
+  - 監査ログ: `audit_{stdio,ws}.jsonl`
+  - 簡易統計: `stats.json`（イベント数/バイト合計/SKIP件数など）
+- ワークフロー設定: `actions/upload-artifact@v4` を `if: always()` で実行し、`test-results/` を収集。
 
 # 失敗基準と段階的ゲート
 
@@ -89,4 +103,3 @@
 - Step Summary とアーティファクト収集の実装。
 - Lint/ユニットテストの追加と、段階的ゲート化ポリシーの定義。
 - `concurrency` 導入による重複実行の抑制（同一PR）。
-
