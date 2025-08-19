@@ -15,40 +15,40 @@ MCP Server 向け Falco プラグイン（以降「MCP プラグイン」）の�
 - フェーズ3: 運用外部化（設定YAML/検出率ゲート/エッジケース耐性）で品質を底上げ。
 - フェーズ4: 観測拡張（eBPF/プロキシ高度化）と運用自動化（レポート/傾向検知）。
 
-# フェーズ計画（更新）
+# フェーズ計画（更新／ID付与）
 
-- フェーズ1（MVP, 観測最小・検知最小）
+- [PH-1] フェーズ1（MVP, 観測最小・検知最小）
   - 監査スキーマ v1 固定（`docs/schema/mcp_audit_v1.json`）。
   - 監査Producer 最小実装（完了）: `mcp-audit-wrap`（stdio）, `mcp-audit-proxy`（tcp/ws透過）。
   - CI 初期構成（完了）: GitHub Actions（PR/手動）で Build + オフラインE2E（SKIP設計）。
   - ルール最小4本（完了）: 未承認エンドポイント/非TLS/大量送信/過剰呼び出し。
   - 方針: eBPF/カーネルモジュールは不使用。監査は StdIO/WS/クライアント内で生成。
-- フェーズ2（品質/運用強化・実動テスト導入）
+- [PH-2] フェーズ2（品質/運用強化・実動テスト導入）
   - テスト用 MCP Server を実装（`docs/testing/MCP_TEST_SERVER_DESIGN.md` 準拠）。
   - 代表シナリオ（S1〜S4）を自動化（`docs/testing/MCP_TEST_SCENARIOS.md`）。
   - 監査Producer拡張: JSON-RPC `.method` 抽出（wrap/proxy）と per-call イベント出力（必要に応じて有効化）。
-  - CI 可視化: Step Summary とアーティファクト収集（`test-results/`）。
-- フェーズ3（運用外部化/ゲート強化）
+  - [PA-3] CI 可視化: Step Summary とアーティファクト収集（`test-results/`）。
+- [PH-3] フェーズ3（運用外部化/ゲート強化）
   - 許可リスト/しきい値の外部化（YAML）と環境別上書き。
   - 検出率/ゲート条件の導入（E2Eの一部を必須化）。
   - サンプル/エッジケース拡充、壊れたJSON/欠損フィールド耐性強化。
-- フェーズ4（観測拡張/自動化）
+- [PH-4] フェーズ4（観測拡張/自動化）
   - eBPF/システムコール観測 or 軽量プロキシでネットワーク/ファイルI/O補足。
   - 日次レポート/傾向検知（しきい値自動提案）、許可リスト更新ワークフロー。
 
-# マイルストーン / 成果物（更新）
+# マイルストーン / 成果物（更新／MS-ID）
 
-- M1: スキーマ・ルール・Producer初期（完了）
+- [MS-1] M1: スキーマ・ルール・Producer初期（完了）
   - `docs/schema/mcp_audit_v1.json`, `rules/mcp_baseline.yaml`, `cmd/mcp-audit-wrap`, `cmd/mcp-audit-proxy`
-- M2: CI基盤（初期）（完了）
+- [MS-2] M2: CI基盤（初期）（完了）
   - `.github/workflows/ci.yml`（PR/手動）, `docs/ci/CI_DESIGN.md`
-- M3: テスト用 MCP Server + シナリオ（新規）
+- [MS-3] M3: テスト用 MCP Server + シナリオ（新規）
   - `mcp-test-server`（stdio/ws）, `docs/testing/*` 反映, 自動化スクリプト
-- M4: CI 可視化/安定化（新規）
+- [MS-4] M4: CI 可視化/安定化（新規）
   - Step Summary, `actions/upload-artifact` による `test-results/` 収集
-- M5: 運用外部化/ゲート強化（新規）
+- [MS-5] M5: 運用外部化/ゲート強化（新規）
   - 設定YAML, 検出率/ゲート, ユニット/`go vet`/`fmt -s -d` の導入
-- M6: 観測拡張 PoC（将来）
+- [MS-6] M6: 観測拡張 PoC（将来）
 
 # 要件との整合（ハイライト）
 
@@ -72,11 +72,11 @@ MCP Server 向け Falco プラグイン（以降「MCP プラグイン」）の�
 - 過検知/誤検知 → 代替: 許可リスト/学習期間/検出率しきい値/緩和ルールを導入。
 - プライバシー懸念 → 代替: レッドアクト/ハッシュ化/オプトアウト設定と透明性の文書化。
 
-# タイムライン（例示・更新）
+# タイムライン（例示・更新／TL-ID）
 
-- 週1–2: M1/M2 完了（達成済）
-- 週3–4: M3（テストサーバー/シナリオ実装）、M4（CI可視化）
-- 週5+: M5（運用外部化/ゲート強化）、M6 PoC と次期計画レビュー
+- [TL-1] 週1–2: M1/M2 完了（達成済）
+- [TL-2] 週3–4: M3（テストサーバー/シナリオ実装）、M4（CI可視化）
+- [TL-3] 週5+: M5（運用外部化/ゲート強化）、M6 PoC と次期計画レビュー
 
 # 体制/役割（R&R）
 
@@ -90,9 +90,9 @@ MCP Server 向け Falco プラグイン（以降「MCP プラグイン」）の�
 - 依存: `jq bc file` を明示インストール。アーティファクト収集を標準化。
 - ガード: `grep -r "ubuntu-latest" .github/workflows` などで誤設定を検知。
 
-# 次アクション（更新）
+# 次アクション（更新／PA-ID）
 
-- テスト用 MCP Server の最小実装（stdio/ws）と自動化スクリプトの追加。
-- 監査Producer: JSON-RPC `.method` 抽出と per-call 出力のオプション化（wrap/proxy）。
-- CI 可視化: Step Summary とアーティファクト収集を追加、E2E一部をゲート化する方針を試験。
-- 運用外部化: 設定YAMLの導入（許可リスト/しきい値）とドキュメント整備。
+- [PA-1] テスト用 MCP Server の最小実装（stdio/ws）と自動化スクリプトの追加。
+- [PA-2] 監査Producer: JSON-RPC `.method` 抽出と per-call 出力のオプション化（wrap/proxy）。
+- [PA-3] CI 可視化: Step Summary とアーティファクト収集を追加、E2E一部をゲート化する方針を試験。
+- [PA-4] 運用外部化: 設定YAMLの導入（許可リスト/しきい値）とドキュメント整備。
