@@ -14,7 +14,7 @@ MCP Server 向け Falco プラグイン開発の将来の開発効率を体系�
 
 # 施策（コンパクト版）
 
-- スキーマ: `internal_docs/schema/mcp_audit_v1.json` を定義。`mcp.*` フィールドの型/説明を単一ソース化。
+- スキーマ: `docs/schema/mcp_audit_v1.json` を定義。`mcp.*` フィールドの型/説明を単一ソース化。
 - コード生成: スキーマ→Go のフィールド定義/バリデーション/変換テーブルを `scripts/gen-fields.sh` で生成。
 - ルールテンプレ: 代表4本（未承認/非TLS/大量送信/過剰呼び出し）を `rules/templates/` に整備し、許可リスト/しきい値は外部化。
 - サンプルデータ: `test/data/mcp_audit/` に最小セット（正常/異常）を格納。E2E はここから再生。

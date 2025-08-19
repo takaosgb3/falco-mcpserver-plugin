@@ -1,3 +1,2 @@
 # Exclude large/reference-only nginx docs from remote pushes
-internal_docs/falco-nginx-plugin-docs/
-
+internal_docs/

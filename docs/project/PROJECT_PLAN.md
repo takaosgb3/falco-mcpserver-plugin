@@ -17,7 +17,7 @@ MCP Server 向け Falco プラグイン（以降「MCP プラグイン」）の�
 # フェーズ計画
 
 - フェーズ1（MVP, 観測最小・検知最小）
-  - 監査スキーマ v1 固定（`internal_docs/schema/mcp_audit_v1.json`）。
+  - 監査スキーマ v1 固定（`docs/schema/mcp_audit_v1.json`）。
   - SDK雛形 + `mcp.*` 抽出（StringPool 準拠）とユニットテスト。
   - ルール最小4本: 未承認エンドポイント/非TLS/大量送信/過剰ツール呼び出し。
   - E2E（JSONアサーション）/SKIPポリシー/アーティファクト収集。
@@ -32,7 +32,7 @@ MCP Server 向け Falco プラグイン（以降「MCP プラグイン」）の�
 # マイルストーン / 成果物
 
 - M1: スキーマ・雛形
-  - 成果物: `schema/mcp_audit_v1.json`、コード生成雛形、フィールド一覧。
+  - 成果物: `docs/schema/mcp_audit_v1.json`、コード生成雛形、フィールド一覧。
 - M2: ルール・テスト
   - 成果物: ルール4本（テンプレ→本線）、サンプルJSON、E2E スクリプト。
 - M3: CI 可視化/安定化
